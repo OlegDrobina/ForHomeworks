@@ -1,5 +1,7 @@
 /*
+    
     HW 3.1. Перелік типів
+
 */
 
 // 1. Variables declaration and initialization
@@ -62,7 +64,19 @@ alert("Thank you! Processing data.");
 // 2. Function to process received values
 
 function processReceivedValue(value) {
-    return value == null ? "Cancel clicked" : value && value.trim()?.length == 0 ? "Empty string inserted" : value;
+    const isCancelClicked = value == null;
+    if (isCancelClicked) {
+        return "Cancel clicked";
+    }
+    const isNothingTyped = value?.length == 0 && value?.trim()?.length == 0;
+    if (isNothingTyped) {
+        return "Nothing was inserted"
+    }
+    const isEmptyStringTyped = value?.length != 0 && value?.trim()?.length == 0;
+    if (isEmptyStringTyped) {
+        return "Empty string inserted";
+    } 
+    return value;
 }
 
 // 3. Process received values
@@ -76,3 +90,35 @@ const thirdValueProcessed = processReceivedValue(thirdInputValue);
 alert(`${firstValueProcessed}\n${secondValueProcessed} \n${thirdValueProcessed}`);
 
 // HW 3.2. end
+
+/*
+
+    HW 3.3. Розкласти п'ятизначне число
+
+*/
+
+let stayInTheLoop = true;
+do {
+    const inputValue = prompt("Please input a 5 digit number.\nIf you want to stop, simply click \"Cancel\".");
+    const isCancelClicked = inputValue == null;
+    if (!isCancelClicked) {
+        const isFiveDigitsText = inputValue?.length == 5;
+        if (isFiveDigitsText) {
+            const isNaNInserted = Number.isNaN(Number(inputValue));
+            if (isNaNInserted) {
+                alert("Number should be inserted. Let's try again.");
+            } else {
+                let resultString = "";
+                inputValue.split('').forEach((item) => {resultString += item + " "});
+                alert(resultString);
+                stayInTheLoop = false;
+            }
+        } else {
+            alert("FIVE digits number is required.");
+        }
+    } else {
+        alert("Cancel clciked. Goodbye!");
+        stayInTheLoop = false;
+    }
+} while (stayInTheLoop);
+
