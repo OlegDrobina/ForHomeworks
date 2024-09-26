@@ -39,3 +39,40 @@ console.log("arrayValue data type is: " + typeof arrayValue);
 console.log("funcValue data type is: " + typeof funcValue);
 
 // HW 3.1. end
+
+/*
+
+    HW 3.2. Числа та рядки
+
+*/
+
+
+// 1. Ask user to input three values
+
+// Message is divided into two parts to make the code more readable
+const questionMesageFirstPart = "You will be asked to input three values.";
+const questionMesageSecondPart = "If the cancel button is clicked or an empty string inserted, we will notify you.";
+alert(questionMesageFirstPart + "\n\n" + questionMesageSecondPart);
+
+const firstInputValue = prompt("Please input the first value");
+const secondInputValue = prompt("Please input the second value");
+const thirdInputValue = prompt("Please input the third value");
+alert("Thank you! Processing data.");
+
+// 2. Function to process received values
+
+function processReceivedValue(value) {
+    return value == null ? "Cancel clicked" : value && value.trim()?.length == 0 ? "Empty string inserted" : value;
+}
+
+// 3. Process received values
+
+const firstValueProcessed = processReceivedValue(firstInputValue);
+const secondValueProcessed = processReceivedValue(secondInputValue);
+const thirdValueProcessed = processReceivedValue(thirdInputValue);
+
+// 4. Return the result
+
+alert(`${firstValueProcessed}\n${secondValueProcessed} \n${thirdValueProcessed}`);
+
+// HW 3.2. end
