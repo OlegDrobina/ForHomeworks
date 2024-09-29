@@ -17,6 +17,19 @@ HW 3.3. Розкласти п'ятизначне число
 
 1 0 3 6 9
 
-The tasks were completed in the way the end-user who starts the program will see the alert that asks to select the task to check. The user can stop the execution of the program by clicking the "Cancel" button in the start alert window.
-Based on option selected the specific task results will be demonstrated.
+The tasks were completed in the way the end-user who starts the program will see the alert that asks to select the task to check. Additionally at the very beginning the end user is informed that the "Cancel" button can be clicked to stop the program execution.
 
+Based on option selected the specific task results will be demonstrated, a correspondent method
+
+processTheFirstTask
+processTheSecondTask
+processTheThirdTask
+
+will be triggered.
+
+NOTE: I'm sure that the code in task 3 can be written more clear, but so far I haven't figured if (and how?) it can be. The number of "if" inside "if" statements is confusing, but they are needed to check cases like:
+
+1. Five digits text is inserted?
+2. Empty string is inserted?
+3. Cancel button is clicked? Or the page was refreshed?
+4. Was the number inserted or some numbers and text?

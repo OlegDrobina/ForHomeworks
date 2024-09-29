@@ -131,7 +131,7 @@ function processTheThirdTask() {
     let stayInTheLoop = true;
     do {
         const inputValue = prompt("Please input a 5 digit number.\nIf you want to stop, simply click \"Cancel\".");
-        const isCancelClicked = inputValue == null;
+        const isCancelClicked = inputValue == null; //also valid for the page refresh here
         const isEmptyStringInserted = inputValue?.trim()?.length == 0;
         if (!isCancelClicked) {
             const isFiveDigitsText = inputValue?.length == 5;
