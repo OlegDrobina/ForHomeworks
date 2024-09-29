@@ -94,7 +94,7 @@ function processTheSecondTask() {
     // 2. Function to process received values
 
     function processReceivedValue(value) {
-        const isCancelClicked = value == null;
+        const isCancelClicked = value == null; //null is returned if cancel is clicked or the page refreshed
         if (isCancelClicked) {
             return "Cancel clicked or the page was refreshed";
         }
@@ -132,9 +132,10 @@ function processTheThirdTask() {
     do {
         const inputValue = prompt("Please input a 5 digit number.\nIf you want to stop, simply click \"Cancel\".");
         const isCancelClicked = inputValue == null;
+        const isEmptyStringInserted = inputValue?.trim()?.length == 0;
         if (!isCancelClicked) {
             const isFiveDigitsText = inputValue?.length == 5;
-            if (isFiveDigitsText) {
+            if (isFiveDigitsText && !isEmptyStringInserted) {
                 const isNaNInserted = Number.isNaN(Number(inputValue));
                 if (isNaNInserted) {
                     alert("Number should be inserted. Let's try again.");
@@ -144,11 +145,13 @@ function processTheThirdTask() {
                     alert(resultString);
                     stayInTheLoop = false;
                 }
+            } else if (isEmptyStringInserted) {
+                alert("Empty string was inserted, let's try again.");
             } else {
                 alert("FIVE digits number is required.");
-            }
+            } 
         } else {
-            alert("Cancel clciked. Home tash check is stopped.");
+            alert("Cancel clciked or the page was refreshed. Home task check is stopped.");
             stayInTheLoop = false;
         }
     } while (stayInTheLoop);
