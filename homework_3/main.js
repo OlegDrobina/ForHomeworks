@@ -134,7 +134,7 @@ function processTheThirdTask() {
         const isCancelClicked = inputValue == null; //also valid for the page refresh here
         const isEmptyStringInserted = inputValue?.trim()?.length == 0;
         if (!isCancelClicked) {
-            const isFiveDigitsText = inputValue?.length == 5;
+            const isFiveDigitsText = inputValue?.length == 5 && inputValue?.trim()?.length == 5;
             if (isFiveDigitsText && !isEmptyStringInserted) {
                 const isNaNInserted = Number.isNaN(Number(inputValue));
                 if (isNaNInserted) {
@@ -148,7 +148,7 @@ function processTheThirdTask() {
             } else if (isEmptyStringInserted) {
                 alert("Empty string was inserted, let's try again.");
             } else {
-                alert("FIVE digits number is required.");
+                alert("FIVE digits number is required without any empty spaces.");
             } 
         } else {
             alert("Cancel clciked or the page was refreshed. Home task check is stopped.");
