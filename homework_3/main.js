@@ -22,7 +22,7 @@ do {
             break;
         default: alert("The number of the task should be inserted");
     }
-} while (continueTaskSelection)
+} while (continueTaskSelection);
  
 
 /*
@@ -119,6 +119,7 @@ function processTheSecondTask() {
 
     alert(`${firstValueProcessed}\n${secondValueProcessed} \n${thirdValueProcessed}`);
 }
+
 // HW 3.2. end
 
 /*
@@ -152,3 +153,5 @@ function processTheThirdTask() {
         }
     } while (stayInTheLoop);
 }
+
+// HW 3.3. end
