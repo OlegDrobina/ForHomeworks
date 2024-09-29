@@ -117,7 +117,7 @@ function processTheSecondTask() {
 
     // 4. Return the result
 
-    alert(`${firstValueProcessed}\n${secondValueProcessed} \n${thirdValueProcessed}`);
+    alert(`${firstValueProcessed}\n${secondValueProcessed}\n${thirdValueProcessed}`);
 }
 
 // HW 3.2. end
