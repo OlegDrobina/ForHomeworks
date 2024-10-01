@@ -13,7 +13,7 @@ alert(`Hello ${userName}! How are you?`);
 
 const num = prompt("Enter the first 3 digit number");
 
-// Check if the value was inserted, if it's a 3 digit value and if it's a number
+// Check if the value was inserted, if it's a 3 digits value and if it's a number
 const isNanValue = Number.isNaN(+num);
 const isThreeDigitValue = num?.length == 3 && num?.trim()?.length == 3;
 const isOperationCanceled= num == null;
@@ -28,7 +28,7 @@ if (isOperationCanceled) {
 } else if (!isThreeDigitValue) {
     messageText = "The inserted value is not a 3 digit number";
 } else {
-    const allNumsEqual = num[0] == num[1] == num[2];
+    const allNumsEqual = num[0] == num[1] && num[1] == num[2] && num[2] == num[0];
     const containsEqualNums = num[0] == num[1] || num[1] == num[2] || num[2] == num[0];
     if (containsEqualNums && !allNumsEqual) {
         messageText = "The value has equal numbers";
@@ -46,7 +46,75 @@ alert(messageText);
     HW 4.3. Портрет користувача
 */
 
-//type code here
+const yearOfBirth = prompt("Please input the year of your birth");
+const currentCity = prompt("Please input the city name where you live");
+const favoriteSport = prompt("Please input your favorite sport name");
+
+// 4.3.4 Check if something was not inserted
+
+const yearOfBirthInserted = yearOfBirth !== null;
+const currentCityInserted = currentCity !== null;
+const favoriteSportInserted = favoriteSport !== null;
+
+// 4.3.1 Return user age
+
+/*
+    Assume that we need this program to dynamically calculate the age and work properly in the years to come
+    Also take 4.3.4 check if the year of birth was inserted by the end-user into consideration
+*/
+
+if (yearOfBirthInserted) {
+    const userAge = new Date().getFullYear() - yearOfBirth;
+    alert(`Your age is: ${userAge}`);
+} else {
+    alert("I'm sorry that you didn't want to specify your year of birth");
+}
+
+
+//4.3.2. City/capital message
+//Also take 4.3.4 check if the current city was inserted by the end-user into consideration
+
+if (currentCityInserted) {
+    let capitalCountry;
+    switch (currentCity) {
+        case "Kyiv":
+            capitalCountry = "Ukraine";
+            break;
+        case "Washington":
+            capitalCountry = "USA";
+            break;
+        case "London":
+            capitalCountry = "Great Britain";
+            break;
+        default:
+            alert(`You live in ${currentCity}`);
+    }
+    capitalCountry?.length > 0 ? alert(`You live in the capital of ${capitalCountry}`) : false;
+} else {
+    alert("I'm sorry that you didn't want to specify the city you live in");
+}
+
+
+
+
+//4.3.3 Sport additional task
+//Also take 4.3.4 check if the favorite sport was inserted by the end-user into consideration
+
+if (favoriteSportInserted) {
+    switch (favoriteSport) {
+        case "Football":
+            alert("Cool! You wanna be Ronaldo?");
+            break;
+        case "Baskteball":
+            alert("Cool! You wannt be Jordan?");
+            break;
+        case "Box":
+            alert("Cool! You wannt be Klitschko?");
+            break;
+        default:
+            alert(`Whish you become the best in ${favoriteSport}!`);
+    }
+}
 
 //  HW 4.3. end
 
@@ -55,7 +123,7 @@ alert(messageText);
     HW 4.4. Робота з switch…case
 */
 
-let numOrStr = prompt('input number or string');
+let numOrStr = +prompt('input number or string');
 console.log(numOrStr);
 
 switch(numOrStr) {
