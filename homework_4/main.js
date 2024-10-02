@@ -105,7 +105,7 @@ if (favoriteSportInserted) {
         case "Football":
             alert("Cool! You wanna be Ronaldo?");
             break;
-        case "Baskteball":
+        case "Basketball":
             alert("Cool! You wannt be Jordan?");
             break;
         case "Box":
@@ -114,6 +114,8 @@ if (favoriteSportInserted) {
         default:
             alert(`Whish you become the best in ${favoriteSport}!`);
     }
+} else {
+    alert("I'm sorry that you didn't want to specify your favorite sport");
 }
 
 //  HW 4.3. end
@@ -123,21 +125,26 @@ if (favoriteSportInserted) {
     HW 4.4. Робота з switch…case
 */
 
-let numOrStr = +prompt('input number or string');
-console.log(numOrStr);
+let numOrStr = prompt('input number or string');
 
 switch(numOrStr) {
-    case (numOrStr === null):
+    case null:
         console.log('Input canceled');
         break;
-    case (numOrStr.trim() === ''):
-        console.log('Empty String');
-        break;
-    case (isNaN(+numOrStr)):
-        console.log(' number is Ba_NaN');
-        break;
     default:
-        console.log('OK!');
+        switch(numOrStr.trim() === '') {
+            case true:
+                console.log('Empty String');
+                break;
+            default:
+                switch (isNaN(+numOrStr)) {
+                    case true:
+                        console.log(' number is Ba_NaN');
+                        break;
+                    default:
+                        console.log('OK!');
+                }
+        }
 }
 
 //  HW 4.4. end
