@@ -16,7 +16,7 @@ console.log(result);
 
 const currencyRate = 26;
 for (let i = 10; i <= 100; i+=10) {
-    console.log(`For ${i} dollars: ${i * currencyRate} hrivnyas`);
+    console.log(`${i * currencyRate} hrivnyas for ${i} dollars.`);
 }
 
 // HW 5.2 end
@@ -27,5 +27,21 @@ for (let i = 10; i <= 100; i+=10) {
 
 const numberInput = +prompt("Enter the number");
 let i = 1;
+while (i*i <= numberInput) {
+    console.log(`${i++}`);
+}
 
 // HW 5.3 end
+
+/* 
+    HW 5.4
+*/
+
+const inputNumber = +prompt("Enter the number");
+let x = 2;
+while (x < inputNumber) {
+    if (x%2 != 0 && x%3 != 0 && x%5 != 0 && x%7 != 0) console.log(x);
+    x++;
+}
+
+// HW 5.4 end
