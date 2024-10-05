@@ -34,14 +34,18 @@ while (i*i <= numberInput) {
 // HW 5.3 end
 
 /* 
-    HW 5.4
+    HW 5.4. Просте число чи ні
 */
 
 const inputNumber = +prompt("Enter the number");
-let x = 2;
-while (x < inputNumber) {
-    if (x%2 != 0 && x%3 != 0 && x%5 != 0 && x%7 != 0) console.log(x);
-    x++;
+let messageText = "Number is prime";
+for (let x = 2; x <= 7; x++) {
+    if (x == 4 || x == 6) continue; //to make the cycle processing faster
+    if (inputNumber%x == 0 && x != inputNumber) {
+        messageText = "Number is not prime";
+        break; //to make the cycle processing faster
+    }
 }
+alert(messageText);
 
 // HW 5.4 end
