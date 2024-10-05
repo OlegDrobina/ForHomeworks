@@ -46,6 +46,6 @@ for (let x = 2; x <= 7; x++) {
         break; //to make the cycle processing faster
     }
 }
-alert(messageText);
+console.log(messageText);
 
 // HW 5.4 end
