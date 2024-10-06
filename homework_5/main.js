@@ -28,7 +28,7 @@ for (let i = 10; i <= 100; i += 10) {
 const numberInput = +prompt("Enter the number");
 let i = 1;
 while (i * i <= numberInput) {
-  console.log(`${i++}`);
+  console.log(i++);
 }
 
 // HW 5.3 end
