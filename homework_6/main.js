@@ -47,7 +47,10 @@ function arithmeticMean(inputValues) {
 
 function removeElement(inputArray, inputItem) {
   if (!Array.isArray(inputArray)) {
-    return "Array is required";
+    return "Array is required as a first argument";
+  }
+  if (!inputItem) {
+    return "Some item is required as a second agument";
   }
   inputArray.forEach((item, index) => {
     if (item === inputItem) {
