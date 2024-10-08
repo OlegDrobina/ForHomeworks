@@ -3,7 +3,7 @@
 */
 
 function modifyString(inputString, elements) {
-  if (typeof inputString != "string") {
+  if (typeof inputString !== "string") {
     return "String is required as a first argument";
   }
   if (!Array.isArray(elements)) {
@@ -23,13 +23,13 @@ function arithmeticMean(inputValues) {
   if (!Array.isArray(inputValues)) {
     return "Array of values is required";
   }
-  if (inputValues.length == 0 && Array.isArray(inputValues)) {
+  if (inputValues.length === 0 && Array.isArray(inputValues)) {
     return "A non-empty array is required";
   }
   let indexCounter = 0; //to count the actual numbers in the array
   let sum = 0;
   inputValues.forEach((item) => {
-    if (typeof item == "number" && !isNaN(item)) {
+    if (typeof item === "number" && !isNaN(item)) {
       //isNaN added cause there can be NaN in the array that is a number data type
       indexCounter++;
       sum += item;
@@ -50,7 +50,8 @@ function removeElement(inputArray, inputItem) {
     return "Array is required";
   }
   inputArray.forEach((item, index) => {
-    if (item == inputItem) {
+    if (item === inputItem) {
+      //strict check is needed here since "3" == 3 returns true
       inputArray.splice(index, 1);
     }
   });
