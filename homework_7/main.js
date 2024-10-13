@@ -2,9 +2,9 @@
   HW 7.1. Замикання
 */
 
-function increaseValue() {
+function incrementValue() {
   let storedValue = 0;
-  return function performIncrement(passedValue) {
+  return function internalIncrementValue(passedValue) {
     storedValue += passedValue;
     return storedValue;
   };
