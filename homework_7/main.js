@@ -4,11 +4,15 @@
 
 function incrementValue() {
   let storedValue = 0;
-  return function internalIncrementValue(passedValue) {
+  return function (passedValue) {
     storedValue += passedValue;
     return storedValue;
   };
 }
+
+//  NOTE: create an instance of the incrementValue function as
+//  const incrementFunction = incrementValue();
+//  and then call console.log(incrementFunction(pass_the_value_here))
 
 /*
   HW 7.2. Добуток через карування
