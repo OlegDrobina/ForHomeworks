@@ -13,7 +13,8 @@ let ladder = {
     return this;
   },
   showStep: function () {
-    //console.log here if we want to continue calling other functions after the showStep function is called
+    // console.log here if we want to continue calling other functions after the showStep function is called
+    // and return this after console.log
     return this.currentStep;
   },
 };
