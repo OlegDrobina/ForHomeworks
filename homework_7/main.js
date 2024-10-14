@@ -29,7 +29,7 @@ function multiplyNumbers(firstNum) {
 */
 
 //Original function (Option 1)
-function questionUser() {
+function questionUserOpt1() {
   for (let i = 0; i < 10; i++) {
     const userAnswer = prompt("Enter the number greater than 100");
     const isNanInserted = isNaN(userAnswer);
@@ -42,7 +42,7 @@ function questionUser() {
 }
 
 //Option 2
-function questionUser() {
+function questionUserOpt2() {
   const receivedInputProcessor = processReceivedInput();
   let shouldStopProcesor = false;
   for (let i = 0; i < 10; i++) {
