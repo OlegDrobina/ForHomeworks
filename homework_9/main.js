@@ -50,9 +50,7 @@ function salaryCalculatorWorker() {
 
   function internalCalculateDepartmentSalary(deparmentStructure) {
     let deparmentSalary = 0;
-    deparmentStructure.forEach((item) => {
-      deparmentSalary += item.salary;
-    });
+    deparmentStructure.forEach((item) => (deparmentSalary += item.salary));
     return deparmentSalary;
   }
 }
