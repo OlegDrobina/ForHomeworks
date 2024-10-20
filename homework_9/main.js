@@ -33,6 +33,7 @@ const company = {
   const salaryCalculator = salaryCalculatorWorker();
   salaryCalculator(company);
 */
+/*
 function salaryCalculatorWorker() {
   let totalSalary = 0;
 
@@ -53,4 +54,24 @@ function salaryCalculatorWorker() {
     deparmentStructure.forEach((item) => (deparmentSalary += item.salary));
     return deparmentSalary;
   }
+}
+*/
+
+//Option with reduce
+function salaryCalculatorWorker() {
+  let totalSalary = 0;
+
+  return function processSalaryCalculation(departmentDivision) {
+    for (department in departmentDivision) {
+      const deparmentStructure = departmentDivision[department];
+      if (Array.isArray(deparmentStructure)) {
+        totalSalary += deparmentStructure.reduce((accum, item) => {
+          return (accum += item.salary);
+        }, 0);
+      } else {
+        processSalaryCalculation(deparmentStructure);
+      }
+    }
+    return totalSalary;
+  };
 }
