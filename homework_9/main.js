@@ -1,7 +1,7 @@
 /*
 Sample object for tests
 
-const obj = {
+const company = {
   sales: [
     { name: "Yurii", salary: 1000 },
     { name: "Peter", salary: 1500 },
@@ -31,7 +31,7 @@ const obj = {
 /*
   The following function should be called as:
   const salaryCalculator = salaryCalculatorWorker();
-  salaryCalculator(obj);
+  salaryCalculator(company);
 */
 function salaryCalculatorWorker() {
   let totalSalary = 0;
