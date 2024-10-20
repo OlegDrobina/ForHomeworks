@@ -36,13 +36,13 @@ const company = {
 function salaryCalculatorWorker() {
   let totalSalary = 0;
 
-  return function internalProcessCalculation(departmentDivision) {
+  return function processSalaryCalculation(departmentDivision) {
     for (department in departmentDivision) {
       const deparmentStructure = departmentDivision[department];
       if (Array.isArray(deparmentStructure)) {
         totalSalary += internalCalculateDepartmentSalary(deparmentStructure);
       } else {
-        internalProcessCalculation(deparmentStructure);
+        processSalaryCalculation(deparmentStructure);
       }
     }
     return totalSalary;
