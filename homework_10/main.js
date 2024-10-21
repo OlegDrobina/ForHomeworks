@@ -16,7 +16,15 @@ const userInfo = {
 */
 
 function getEvenNumbersFromArray(inputArray) {
-  inputArray.filter((item) => item % 2 === 0);
+  return inputArray.filter((item) => item % 2 === 0);
+  //also can add map here to create a new array or we can assign this function execution to the variable
+  /*
+    Another option (but it has no sense, map is not needed here if we use
+      const arrayResult = getEvenNumbersFromArray([1,2,3,4]))
+      
+    const resultArray = inputArray.filter((item) => item % 2 === 0).map((item)=> item);
+    return resultArray;
+  */
 }
 
 /*
