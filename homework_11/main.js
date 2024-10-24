@@ -9,9 +9,9 @@ const pifagorTableEl = document.createElement("table");
 for (let i = 1; i <= 10; i++) {
   const pifagorTableRowEl = document.createElement("tr");
   for (let j = 1; j <= 10; j++) {
-    const pifaforTableCellEl = document.createElement("td");
-    pifaforTableCellEl.textContent = i * j;
-    pifagorTableRowEl.append(pifaforTableCellEl);
+    const pifagorTableCellEl = document.createElement("td");
+    pifagorTableCellEl.textContent = i * j;
+    pifagorTableRowEl.append(pifagorTableCellEl);
   }
   pifagorTableEl.append(pifagorTableRowEl);
 }
