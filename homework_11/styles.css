@@ -8,3 +8,7 @@ td {
 .textToChangeColor {
     color: chocolate;
 }
+
+img {
+    padding: 10px;
+}

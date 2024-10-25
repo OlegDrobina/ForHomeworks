@@ -32,3 +32,18 @@ buttonEl.addEventListener("click", function (event) {
 });
 
 document.body.append(textEl, buttonEl);
+
+/*
+  HW 11.3. Отримання випадкового зображення
+*/
+
+function selectRandomImage() {
+  const randomNumber = Math.floor(Math.random() * 9) + 1;
+  return `img/${randomNumber}.jpg`;
+}
+
+const divEl = document.createElement("div");
+const imgEl = document.createElement("img");
+const imgElSrc = selectRandomImage();
+imgEl.src = imgElSrc;
+document.body.append(divEl, imgEl);
