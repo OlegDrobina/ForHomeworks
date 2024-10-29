@@ -28,7 +28,7 @@ function verifyInsertedLink(link) {
 const goToLinkButtonEl = document.getElementById("goToLink");
 goToLinkButtonEl.addEventListener("click", function (event) {
   event.stopPropagation();
-  if (window.location.href.length != 0) {
+  if (window.location.href.length !== 0) {
     //could use location instead of window.location here as well
     window.location.href = window.insertedLink;
   } else {
