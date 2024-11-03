@@ -1,3 +1,6 @@
+/*
+  HW 13.1. Валідація з RegEx
+*/
 const form = document.querySelector("form");
 
 const nameInputEl = document.getElementById("exampleFormControlInput1");
