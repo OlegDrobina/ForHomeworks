@@ -32,7 +32,7 @@ const validatorsList = [
   },
   {
     name: "exampleFormControlInput3",
-    validator: /\w{1,}@\w{1,}\.\w{1,}/s,
+    validator: /\w{1,}@\w{1,}\.\w{1,}/,
     errorElement: "email-error",
     errorMessage: "Email is required and a valid email address is expected",
     isValid: false,
