@@ -11,7 +11,7 @@ const emailInputEl = document.getElementById("exampleFormControlInput3");
 const validatorsList = [
   {
     name: "exampleFormControlInput1",
-    validator: /[A-Za-z]{1,}/,
+    validator: /[A-Za-zА-Яа-я]{1,}/,
     errorElement: "name-error",
     errorMessage: "Name should be filled in",
     isValid: false,
