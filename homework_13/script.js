@@ -20,21 +20,21 @@ const validatorsList = [
     name: "exampleFormControlTextarea1",
     validator: /.{5,}/s,
     errorElement: "message-error",
-    errorMessage: "Field should contain at least 5 characters",
+    errorMessage: "Message should contain at least 5 characters",
     isValid: false,
   },
   {
     name: "exampleFormControlInput2",
     validator: /\+380\d{9,}/,
     errorElement: "phone-error",
-    errorMessage: "Field is required and should start with +380",
+    errorMessage: "Phone is required and should start with +380",
     isValid: false,
   },
   {
     name: "exampleFormControlInput3",
     validator: /\w{1,}@\w{1,}\.\w{1,}/s,
     errorElement: "email-error",
-    errorMessage: "Field is required and valid email address is expected",
+    errorMessage: "Email is required and a valid email address is expected",
     isValid: false,
   },
 ];
@@ -43,32 +43,17 @@ const validateValue = function (element) {
   const elementId = element.target.id;
   const elementContent = element.target.value;
 
-  const elementValidator = validatorsList.find(
+  const elementValidatatorInfo = validatorsList.find(
     (item) => item.name == elementId
   );
-  const elvalidatorValue = elementValidator.validator;
-  const elValidatorErrorEl = elementValidator.errorElement;
-  const elValidatorErrorMessage = elementValidator.errorMessage;
+  const elementValidator = elementValidatatorInfo.validator;
+  const elValidatorErrorEl = elementValidatatorInfo.errorElement;
+  const elValidatorErrorMessage = elementValidatatorInfo.errorMessage;
 
-  validateColumn(elementContent, elvalidatorValue)
+  elementValidator.test(elementContent)
     ? setValidState(elementId, elValidatorErrorEl)
     : setInvalidState(elementId, elValidatorErrorEl, elValidatorErrorMessage);
 };
-
-function validateColumn(columnValue, validator) {
-  return validator.test(columnValue);
-}
-
-function validateBeforeSubmit(
-  elementId,
-  validator,
-  errorElement,
-  errorMessage
-) {
-  validator.test(elementId)
-    ? setValidState(elementId, errorElement)
-    : setInvalidState(elementId, errorElement, errorMessage);
-}
 
 function setInvalidState(element, errorElement, errorMessage) {
   document.querySelector(`.${errorElement}`).classList.add("show-error");
