@@ -100,8 +100,8 @@ form.addEventListener("submit", (event) => {
   const formData = new FormData(event.target);
   const formObj = {};
   formData.forEach((value, key) => (formObj[key] = value));
-  const validationResult = validatorsList.some((item) => item.isValid == false);
-  if (validationResult) {
+  const formInvalid = validatorsList.some((item) => item.isValid == false);
+  if (formInvalid) {
     validatorsList.forEach((item) => {
       if (item.isValid == false) {
         setInvalidState(item.element, item.errorElement, item.errorMessage);
