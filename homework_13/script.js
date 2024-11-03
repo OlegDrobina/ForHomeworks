@@ -46,11 +46,11 @@ const validateValue = function (element) {
   const elementValidator = validatorsList.find(
     (item) => item.name == elementId
   );
-  const validatorValue = elementValidator.validator;
+  const elvalidatorValue = elementValidator.validator;
   const elValidatorErrorEl = elementValidator.errorElement;
   const elValidatorErrorMessage = elementValidator.errorMessage;
 
-  validateColumn(elementContent, validatorValue)
+  validateColumn(elementContent, elvalidatorValue)
     ? setValidState(elementId, elValidatorErrorEl)
     : setInvalidState(elementId, elValidatorErrorEl, elValidatorErrorMessage);
 };
