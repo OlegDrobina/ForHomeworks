@@ -131,11 +131,11 @@ function saveTaskStatusInLocalStorage(evtTarget, listEl) {
   const isCompleted = listEl.classList.contains("todo-item--checked");
   const taskId = evtTarget.parentElement.id;
   const localStorageTasks = localStorage.getItem("listOfTasks");
-  const taskFromLocalStorageId = JSON.parse(localStorageTasks).findIndex(
+  const taskFromLocalStorageIdx = JSON.parse(localStorageTasks).findIndex(
     (task) => task.id == taskId
   );
   const parsedLocalStorage = JSON.parse(localStorageTasks);
-  parsedLocalStorage[taskFromLocalStorageId].isCompleted = isCompleted;
+  parsedLocalStorage[taskFromLocalStorageIdx].isCompleted = isCompleted;
   localStorage.setItem("listOfTasks", JSON.stringify(parsedLocalStorage));
 }
 
