@@ -15,10 +15,8 @@ function createTaskRecordOnInit(task) {
 const formEl = document.querySelector("form");
 formEl.addEventListener("submit", (event) => {
   event.preventDefault();
+  handleAddTaskButtonClick();
 });
-
-const addTaskButton = document.querySelector(".form__btn");
-addTaskButton.addEventListener("click", handleAddTaskButtonClick);
 
 function handleAddTaskButtonClick() {
   const taskCaptionEl = document.querySelector(".js--form__input");
