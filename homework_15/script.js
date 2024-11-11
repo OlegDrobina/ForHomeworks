@@ -8,6 +8,7 @@ window.addEventListener("load", () => {
 });
 
 function createTaskRecordOnInit(task) {
+  //to do - reduce the number of params using destructuring assignment
   generateTaskListRecord(task.id, task.caption, task.isCompleted, false);
 }
 
@@ -22,7 +23,7 @@ addTaskButton.addEventListener("click", handleAddTaskButtonClick);
 function handleAddTaskButtonClick() {
   const taskCaptionEl = document.querySelector(".js--form__input");
   const taskCaption = taskCaptionEl.value;
-  generateTaskListRecord(null, taskCaption, false);
+  generateTaskListRecord(null, taskCaption);
 }
 
 function generateTaskListRecord(
@@ -72,32 +73,13 @@ function addTaskListRecord(newListEl) {
   formEl.reset();
 }
 
-function changeTaskStatus(event) {
-  const eventTarget = event.currentTarget;
-  const listEl = eventTarget.parentElement;
-  listEl.classList.toggle("todo-item--checked");
-  saveTaskStatusInLocalStorage(eventTarget, listEl);
-}
-
-function saveTaskStatusInLocalStorage(evtTarget, listEl) {
-  const isCompleted = listEl.classList.contains("todo-item--checked");
-  const taskId = evtTarget.parentElement.id;
-  const localStorageTasks = localStorage.getItem("listOfTasks");
-  const taskFromLocalStorageId = JSON.parse(localStorageTasks).findIndex(
-    (task) => task.id == taskId
-  );
-  const parsedLocalStorage = JSON.parse(localStorageTasks);
-  parsedLocalStorage[taskFromLocalStorageId].isCompleted = isCompleted;
-  localStorage.setItem("listOfTasks", JSON.stringify(parsedLocalStorage));
-}
+/*
+  Elements generators
+*/
 
 function generateListNewElement(taskId) {
   const newListEl = document.createElement("li");
-  if (taskId) {
-    newListEl.id = taskId;
-  } else {
-    newListEl.id = generateId();
-  }
+  taskId ? (newListEl.id = taskId) : (newListEl.id = generateId());
   newListEl.classList.add("todo-item");
   return newListEl;
 }
@@ -128,6 +110,41 @@ function generateRemoveButtonElement() {
   return removeButtonEl;
 }
 
+function generateListElement(config) {
+  const generatedElement = config.newListEl;
+  generatedElement.appendChild(config.newChecboxEl);
+  generatedElement.appendChild(config.newDescriptionEl);
+  generatedElement.appendChild(config.newRemoveButtonEl);
+  return generatedElement;
+}
+
+/*
+  Task status change handler
+*/
+
+function changeTaskStatus(event) {
+  const eventTarget = event.currentTarget;
+  const listEl = eventTarget.parentElement;
+  listEl.classList.toggle("todo-item--checked");
+  saveTaskStatusInLocalStorage(eventTarget, listEl);
+}
+
+function saveTaskStatusInLocalStorage(evtTarget, listEl) {
+  const isCompleted = listEl.classList.contains("todo-item--checked");
+  const taskId = evtTarget.parentElement.id;
+  const localStorageTasks = localStorage.getItem("listOfTasks");
+  const taskFromLocalStorageId = JSON.parse(localStorageTasks).findIndex(
+    (task) => task.id == taskId
+  );
+  const parsedLocalStorage = JSON.parse(localStorageTasks);
+  parsedLocalStorage[taskFromLocalStorageId].isCompleted = isCompleted;
+  localStorage.setItem("listOfTasks", JSON.stringify(parsedLocalStorage));
+}
+
+/*
+  Task remove handler
+*/
+
 function removeTask(event) {
   const eventTarget = event.currentTarget;
   const listRecordEl = eventTarget.parentElement;
@@ -146,12 +163,4 @@ function removeTaskFromStorage(event) {
     "listOfTasks",
     JSON.stringify(localStorageTasksWithoutRemoved)
   );
-}
-
-function generateListElement(config) {
-  const generatedElement = config.newListEl;
-  generatedElement.appendChild(config.newChecboxEl);
-  generatedElement.appendChild(config.newDescriptionEl);
-  generatedElement.appendChild(config.newRemoveButtonEl);
-  return generatedElement;
 }
