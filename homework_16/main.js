@@ -7,22 +7,25 @@ function Student(fistName, lastName, birthYear) {
   this.attendanceList = [];
   this.attendanceList.length = 25;
   Object.defineProperty(this.attendanceList, "length", { writable: false });
+  Object.defineProperty(this.attendanceList, "currentPosition", {
+    writable: true,
+  });
+  this.attendanceList.currentPosition = 0;
 
   /*
     Absent\present methods for attendance list.
   */
-  this.present = (idx) => {
-    if (idx < 0) {
-      return "Lesson number cannot be negative";
-    }
-    this.attendanceList[idx] = true;
+
+  this.present = () => {
+    const currentAttListEl = this.attendanceList.currentPosition;
+    this.attendanceList[currentAttListEl] = true;
+    this.attendanceList.currentPosition++;
   };
 
-  this.absent = (idx) => {
-    if (idx < 0) {
-      return "Lesson number cannot be negative";
-    }
-    this.attendanceList[idx] = false;
+  this.absent = () => {
+    const currentAttListEl = this.attendanceList.currentPosition;
+    this.attendanceList[currentAttListEl] = false;
+    this.attendanceList.currentPosition++;
   };
 
   // Calculates the student age
@@ -76,10 +79,10 @@ function Student(fistName, lastName, birthYear) {
 const OlegDrobina = new Student("Oleg", "Drobina", "1995");
 for (let i = 0; i <= 10; i++) {
   if (i % 2 == 0) {
-    OlegDrobina.present(i);
+    OlegDrobina.present();
     OlegDrobina.scoreList.push(i * 10);
   } else {
-    OlegDrobina.absent(i);
+    OlegDrobina.absent();
     OlegDrobina.scoreList.push(i * 10);
   }
 }
@@ -88,22 +91,19 @@ console.log(`Oleg Drobina age: ${OlegDrobina.getAge()}`); //expected 29 (2024-19
 console.log(`Oleg Drobina avg score: ${OlegDrobina.getAverageScore()}`); //expected 50 (0+...+100 = 550; 550/11 = 50)
 console.log(`Oleg Drobina summary: ${OlegDrobina.summary()}`); //expected "Rediska!" (50<90 && 0.24 < 0.9 (attended lessons == true => 6 / 25 = 0.24))
 
-//Example 2. Try adding 26+ class attendance record (attendanceList array). Also test negative lesson index. Get "Excellent" score.
+//Example 2. Try adding 26+ class attendance record (attendanceList array). Get "Excellent" score.
 const AngelaReyes = new Student("Angela", "Reyes", "1997");
 
-AngelaReyes.present(100); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.absent(26); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.present(26); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.absent(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.present(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.absent(999); //expected nothing to happen. Length won't be edited and the new record won't be added
+//expected nothing to happen. Length won't be edited and the new record won't be added
+for (let i = 0; i < 200; i++) {
+  AngelaReyes.present();
+}
 
 const attListCopy = [...AngelaReyes.attendanceList];
 
 console.log("Angela Reyes attendance list before the cycle: ", attListCopy);
 
 for (let i = 0; i < 25; i++) {
-  AngelaReyes.present(i);
   AngelaReyes.scoreList.push(100);
 }
 
@@ -115,7 +115,7 @@ console.log(`Angela Reyes summary: ${AngelaReyes.summary()}`); //expected "Well 
 const DeanParett = new Student("Dean", "Parrett", "1993");
 
 for (let i = 0; i < 25; i++) {
-  DeanParett.present(i);
+  DeanParett.present();
   DeanParett.scoreList.push(80);
 }
 
