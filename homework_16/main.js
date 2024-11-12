@@ -10,17 +10,15 @@ function Student(fistName, lastName, birthYear) {
 
   /*
     Absent\present methods for attendance list.
-    Could do it as a separate method in the constructor function
-    but decided to keep both methods inside the attendanceList
   */
-  this.attendanceList.present = (idx) => {
+  this.present = (idx) => {
     if (idx < 0) {
       return "Lesson number cannot be negative";
     }
     this.attendanceList[idx] = true;
   };
 
-  this.attendanceList.absent = (idx) => {
+  this.absent = (idx) => {
     if (idx < 0) {
       return "Lesson number cannot be negative";
     }
@@ -78,10 +76,10 @@ function Student(fistName, lastName, birthYear) {
 const OlegDrobina = new Student("Oleg", "Drobina", "1995");
 for (let i = 0; i <= 10; i++) {
   if (i % 2 == 0) {
-    OlegDrobina.attendanceList.present(i);
+    OlegDrobina.present(i);
     OlegDrobina.scoreList.push(i * 10);
   } else {
-    OlegDrobina.attendanceList.absent(i);
+    OlegDrobina.absent(i);
     OlegDrobina.scoreList.push(i * 10);
   }
 }
@@ -93,19 +91,19 @@ console.log(`Oleg Drobina summary: ${OlegDrobina.summary()}`); //expected "Redis
 //Example 2. Try adding 26+ class attendance record (attendanceList array). Also test negative lesson index. Get "Excellent" score.
 const AngelaReyes = new Student("Angela", "Reyes", "1997");
 
-AngelaReyes.attendanceList.present(100); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.attendanceList.absent(26); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.attendanceList.present(26); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.attendanceList.absent(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.attendanceList.present(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
-AngelaReyes.attendanceList.absent(999); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.present(100); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.absent(26); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.present(26); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.absent(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.present(-1); //expected nothing to happen. Length won't be edited and the new record won't be added
+AngelaReyes.absent(999); //expected nothing to happen. Length won't be edited and the new record won't be added
 
 const attListCopy = [...AngelaReyes.attendanceList];
 
 console.log("Angela Reyes attendance list before the cycle: ", attListCopy);
 
 for (let i = 0; i < 25; i++) {
-  AngelaReyes.attendanceList.present(i);
+  AngelaReyes.present(i);
   AngelaReyes.scoreList.push(100);
 }
 
@@ -117,7 +115,7 @@ console.log(`Angela Reyes summary: ${AngelaReyes.summary()}`); //expected "Well 
 const DeanParett = new Student("Dean", "Parrett", "1993");
 
 for (let i = 0; i < 25; i++) {
-  DeanParett.attendanceList.present(i);
+  DeanParett.present(i);
   DeanParett.scoreList.push(80);
 }
 
