@@ -1,23 +1,18 @@
-let startTimerValue = "10:15";
+let timerValue = "10:15";
 let processTimerId;
 const timerEl = document.getElementById("timer");
-timerEl.textContent = startTimerValue;
+timerEl.textContent = timerValue;
 
-window.addEventListener("load", startTimer);
+window.addEventListener("load", internalExecuteTimer);
 
-function startTimer() {
+function internalExecuteTimer() {
   processTimerId = setInterval(processTimerValue, 1000);
 }
 
 const processTimerValue = () => {
-  let minutesVal = parseInt(
-    startTimerValue.substring(0, startTimerValue.indexOf(":"))
-  );
+  let minutesVal = parseInt(timerValue.substring(0, timerValue.indexOf(":")));
   let secondsVal = parseInt(
-    startTimerValue.substring(
-      startTimerValue.indexOf(":") + 1,
-      startTimerValue.length
-    )
+    timerValue.substring(timerValue.indexOf(":") + 1, timerValue.length)
   );
   if (secondsVal == 0) {
     secondsVal = 59;
@@ -32,8 +27,8 @@ const processTimerValue = () => {
     minutesVal < 10 ? minutesVal.toString().padStart(2, 0) : +minutesVal;
   secondsVal =
     secondsVal < 10 ? secondsVal.toString().padStart(2, 0) : +secondsVal;
-  startTimerValue = `${minutesVal}:${secondsVal}`;
-  timerEl.textContent = startTimerValue;
+  timerValue = `${minutesVal}:${secondsVal}`;
+  timerEl.textContent = timerValue;
   if (minutesVal == "00" && secondsVal == "00") {
     clearInterval(processTimerId);
   }
