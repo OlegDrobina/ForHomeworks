@@ -1,0 +1,115 @@
+div {
+    margin: auto;
+    height: 350px;
+    width: 40%;
+    background-image: linear-gradient(to right, darkblue, blue);
+  }
+
+  #widget-container-1 {
+    position:relative;
+    display: inline-block;
+  }
+
+  #widget-container-2 {
+    position: absolute;
+    display: inline-block;
+  }
+
+  #date-time-battery-info-container {
+    width: 300px;
+    height: 100px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #current-date-info {
+    color: white;
+    font-style: normal;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 0px;
+  }
+
+  #current-time-info {
+    color: white;
+    font-weight: bold;
+    font-size: 32px;
+    font-style: normal;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding-left: 20px;
+    padding-top: 0px;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .material-icons {
+    color: white;
+    padding-left: 20px;
+    display: inline-block;
+    font-size: 12px;
+  }
+
+  #alarm-clock-info {
+    color: white;
+    display: inline-block;
+  }
+
+ #batery-info {
+    color: white;
+    display: inline-block;
+  }
+
+  .reload {
+    font-family: Lucida Sans Unicode;
+    color:white;
+  }
+
+  #weather-info-container {
+    color:white;  
+    margin-top: 50px;
+    margin-left: 25px;
+  }
+
+  #weather-image-container {
+    height: 200px;
+    width: 200px;
+  }
+
+  #weather-image {
+    padding-top: 30px;
+    padding-left: 30px;
+    height: 100px;
+    width: 100px;
+  }
+
+  #temperature-info {
+    padding-left: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin-top: 30px;
+  }
+
+  #feels-like-info {
+    color: white;
+    padding-left: 30px;
+  }
+
+  #detailed-weather-info {
+    color: white;
+    font-weight: bold;
+    padding-left: 30px;
+  }
+
+  #current-date-time-info-bottom{
+    color:white;
+    display: inline-block;
+  }
+
+  #refresh-data-button {
+    width: 30px;
+    height: 30px;
+  }
