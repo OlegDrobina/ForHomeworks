@@ -126,7 +126,7 @@ function loadWidgetData() {
   setCurrentDate();
   setCurrentTime();
   getBatteryLevel();
-  setCurrentDateTime();
+  setCurrentDateTimeForBottomElement();
   setWeatherDataInfo();
 }
 
@@ -173,7 +173,7 @@ function getCurrentTime() {
   });
 }
 
-function setCurrentDateTime() {
+function setCurrentDateTimeForBottomElement() {
   const dateTimeInfo = getCurrentDateInfo();
   const currentTimeValue = getCurrentTime();
   const monthVal = dateTimeInfo.month;
