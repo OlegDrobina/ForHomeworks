@@ -211,24 +211,35 @@ function setWeatherDataInfo() {
       })?.name;
       const tempreatureValue = weatherData?.main?.temp;
       const feelsLikeValue = weatherData?.main?.feels_like;
-
       const weatherId = weatherData?.weather?.id;
-
-      setWidgetColor(weatherId);
-      setWeatherImage(weatherId);
-      humidityValueEl.textContent = `Humidity: ${humidityValue}%`;
-      pressureValueEl.textContent = `Pressure: ${pressureValue}hPa`;
-      windValueEl.textContent = `Wind: ${windSpeedValue} m/s ${windDirectionValueName}`;
-      temperatureValueEl.textContent = `${convertStringToCelsius(
-        tempreatureValue
-      )}`;
-      feelsLikeValueEl.textContent = `Feels like: ${convertStringToCelsius(
-        feelsLikeValue
-      )}`;
+      const receivedWeatherInfo = {
+        weatherId: weatherId,
+        humidity: humidityValue,
+        pressure: pressureValue,
+        windSpeed: windSpeedValue,
+        windDirectionName: windDirectionValueName,
+        temperature: tempreatureValue,
+        feelsLike: feelsLikeValue,
+      };
+      processReceivedWeatherInfo(receivedWeatherInfo);
     })
     .catch((error) => {
       console.log(`Server request returned error: ${error}`);
     });
+}
+
+function processReceivedWeatherInfo(weatherInfo) {
+  humidityValueEl.textContent = `Humidity: ${weatherInfo.humidity}%`;
+  pressureValueEl.textContent = `Pressure: ${weatherInfo.pressure}hPa`;
+  windValueEl.textContent = `Wind: ${weatherInfo.windSpeed} m/s ${weatherInfo.windDirectionName}`;
+  temperatureValueEl.textContent = `${convertStringToCelsius(
+    weatherInfo.temperature
+  )}`;
+  feelsLikeValueEl.textContent = `Feels like: ${convertStringToCelsius(
+    weatherInfo.feelsLike
+  )}`;
+  setWidgetColor(weatherInfo.weatherId);
+  setWeatherImage(weatherInfo.weatherId);
 }
 
 /*
