@@ -2,7 +2,7 @@ div {
     margin: auto;
     height: 350px;
     width: 500px;
-    background-image: linear-gradient(to right, darkblue, blue);
+    background-image: white;
   }
 
   #widget-container-1 {
@@ -23,10 +23,13 @@ div {
     margin-bottom: 10px;
   }
 
+  p {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
   #current-date-info {
     color: white;
     font-style: normal;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     padding-left: 20px;
     padding-top: 20px;
     margin-bottom: 0px;
@@ -37,7 +40,6 @@ div {
     font-weight: bold;
     font-size: 32px;
     font-style: normal;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     padding-left: 20px;
     padding-top: 0px;
     padding-top: 0px;
@@ -86,6 +88,8 @@ div {
   }
 
   #temperature-info {
+    margin-bottom: 15px;
+    margin-top: 15px;
     padding-left: 30px;
     font-size: 30px;
     font-weight: bold;
@@ -117,4 +121,12 @@ div {
 
   .cloudy-weather {
     background-image: linear-gradient(to right, rgb(174, 122, 122), grey);
+  }
+
+  .snowy-weather {
+    background-image: linear-gradient(to right, rgba(197, 150, 150, 0.992), rgb(91, 86, 86));
+  }
+
+  .sunny-weather {
+    background-image: linear-gradient(to right, darkblue, blue);
   }

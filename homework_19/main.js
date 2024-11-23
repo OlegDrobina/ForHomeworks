@@ -1,4 +1,10 @@
 /*
+    Coordinates (default value is set for Kyiv)
+*/
+const LATITUDE = 50.450001;
+const LONGITUDE = 30.523333;
+
+/*
     Widget constants
 */
 const WEEKDAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -12,7 +18,7 @@ const WIND_DIRECTIONS = [
     value: [0, 19],
   },
   {
-    name: "N/NE",
+    name: "NNE",
     value: [20, 39],
   },
   {
@@ -20,7 +26,7 @@ const WIND_DIRECTIONS = [
     value: [40, 59],
   },
   {
-    name: "E/NE",
+    name: "ENE",
     value: [60, 79],
   },
   {
@@ -28,7 +34,7 @@ const WIND_DIRECTIONS = [
     value: [80, 109],
   },
   {
-    name: "E/SE",
+    name: "ESE",
     value: [110, 129],
   },
   {
@@ -36,7 +42,7 @@ const WIND_DIRECTIONS = [
     value: [130, 149],
   },
   {
-    name: "S/SE",
+    name: "SSE",
     value: [150, 169],
   },
   {
@@ -44,7 +50,7 @@ const WIND_DIRECTIONS = [
     value: [170, 199],
   },
   {
-    name: "S/SW",
+    name: "SSW",
     value: [200, 219],
   },
   {
@@ -52,7 +58,7 @@ const WIND_DIRECTIONS = [
     value: [220, 239],
   },
   {
-    name: "W/SW",
+    name: "WSW",
     value: [240, 259],
   },
   {
@@ -60,7 +66,7 @@ const WIND_DIRECTIONS = [
     value: [260, 289],
   },
   {
-    name: "W/NW",
+    name: "WNW",
     value: [290, 309],
   },
   {
@@ -75,11 +81,14 @@ const WIND_DIRECTIONS = [
 /*
     Weather info elements
 */
+const widgetMainContainer = document.querySelector("div");
 const humidityValueEl = document.getElementById("humidity-level");
 const pressureValueEl = document.getElementById("pressure-level");
 const windValueEl = document.getElementById("wind-level");
 const temperatureValueEl = document.getElementById("temperature-info");
 const feelsLikeValueEl = document.getElementById("feels-like-info");
+const weatherImageEl = document.getElementById("weather-image");
+const weatherDescription = document.getElementById("detailed-weather-info");
 
 /*
     Date time info elements
@@ -194,9 +203,8 @@ function getBatteryLevel() {
 */
 
 function setWeatherDataInfo() {
-  fetch(
-    "https://api.openweathermap.org/data/2.5/weather?lat=40.46667&lon=19.48972&appid=42464cd71517254ed032696a5866b68b&units=metric"
-  )
+  const serviceUrl = formServiceUrl();
+  fetch(serviceUrl)
     .then((response) => response.json())
     .then((weatherData) => {
       const humidityValue = weatherData?.main?.humidity;
@@ -211,9 +219,9 @@ function setWeatherDataInfo() {
       })?.name;
       const tempreatureValue = weatherData?.main?.temp;
       const feelsLikeValue = weatherData?.main?.feels_like;
-      const weatherId = weatherData?.weather?.id;
+      const weatherId = weatherData?.weather[0]?.id;
       const receivedWeatherInfo = {
-        weatherId: weatherId,
+        weatherId: String(weatherId),
         humidity: humidityValue,
         pressure: pressureValue,
         windSpeed: windSpeedValue,
@@ -228,6 +236,10 @@ function setWeatherDataInfo() {
     });
 }
 
+/*
+    Processes information received from the weather data service
+*/
+
 function processReceivedWeatherInfo(weatherInfo) {
   humidityValueEl.textContent = `Humidity: ${weatherInfo.humidity}%`;
   pressureValueEl.textContent = `Pressure: ${weatherInfo.pressure}hPa`;
@@ -238,8 +250,7 @@ function processReceivedWeatherInfo(weatherInfo) {
   feelsLikeValueEl.textContent = `Feels like: ${convertStringToCelsius(
     weatherInfo.feelsLike
   )}`;
-  setWidgetColor(weatherInfo.weatherId);
-  setWeatherImage(weatherInfo.weatherId);
+  setWeatherDescriptionAndImage(weatherInfo.weatherId);
 }
 
 /*
@@ -254,5 +265,83 @@ function convertStringToCelsius(tempreatureValue) {
   return degrees.format(tempreatureValue);
 }
 
-function setWeatherImage(weatherId) {}
-function setWidgetColor(weatherId) {}
+/*
+    Sets weather description and image. Additionally sets widget color
+*/
+function setWeatherDescriptionAndImage(weatherId) {
+  const weatherCodeStart = weatherId[0];
+  let imageName = "";
+  let weatherDesctiption = "";
+  let widgetColorCode = "1";
+  switch (weatherId) {
+    case "800":
+      imageName = "sunny.webp";
+      weatherDesctiption = "Sunny";
+      break;
+    default:
+      switch (weatherCodeStart) {
+        case "8":
+          imageName = "cloudy.webp";
+          weatherDesctiption = "Cloudy";
+          widgetColorCode = "2";
+          break;
+        case "7":
+          imageName = "wind.webp";
+          weatherDesctiption = "Windy";
+          widgetColorCode = "2";
+          break;
+        case "6":
+          imageName = "snow.webp";
+          weatherDesctiption = "Snow";
+          widgetColorCode = "3";
+          break;
+        case "5":
+          imageName = "rain.webp";
+          weatherDesctiption = "Raining";
+          widgetColorCode = "2";
+          break;
+        case "3":
+          imageName = "drizzle.webp";
+          weatherDesctiption = "Drizzle";
+          widgetColorCode = "2";
+          break;
+        case "2":
+          imageName = "thunderstorm.webp";
+          weatherDesctiption = "Thunderstorm";
+          widgetColorCode = "2";
+          break;
+        default:
+          imageName = "sunnycloud.webp";
+          weatherDesctiption = "Sunny cloud";
+      }
+  }
+  const imageValue = `./img/${imageName}`;
+  setWidgetColor(widgetColorCode);
+  weatherImageEl.src = imageValue;
+  weatherDescription.textContent = weatherDesctiption;
+}
+
+/*
+    Sets widget color
+*/
+function setWidgetColor(widgetColorCode) {
+  widgetMainContainer.className = "";
+  switch (widgetColorCode) {
+    case "2":
+      widgetMainContainer.classList.add("cloudy-weather");
+      break;
+    case "3":
+      widgetMainContainer.classList.add("snowy-weather");
+      break;
+    default:
+      widgetMainContainer.classList.add("sunny-weather");
+      break;
+  }
+}
+
+/*
+    Form URL to the weather data service
+*/
+function formServiceUrl() {
+  return `https://api.openweathermap.org/data/2.5/weather?lat=${LATITUDE}&lon=${LONGITUDE}&appid=42464cd71517254ed032696a5866b68b&units=metric`;
+}
