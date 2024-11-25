@@ -11,7 +11,7 @@ const WEEKDAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const WIND_DIRECTIONS = [
   {
     name: "N",
-    value: [0, 19],
+    value: [350, 361],
   },
   {
     name: "N",
