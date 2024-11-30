@@ -21,8 +21,7 @@ formEl.on("submit", (event) => {
 });
 
 function handleAddTaskButtonClick() {
-  const taskCaptionEl = document.querySelector(".js--form__input");
-  const taskCaption = taskCaptionEl.value;
+  const taskCaption = $(".js--form__input").val();
   generateTaskListRecord(null, taskCaption);
 }
 
@@ -68,8 +67,7 @@ function saveTaskToLocalStorageOnTaskCreation(id, caption) {
 }
 
 function addTaskListRecord(newListEl) {
-  const taskListEl = document.querySelector("ul");
-  taskListEl.appendChild(newListEl);
+  $("ul").append(newListEl);
   formEl.trigger("reset");
 }
 
