@@ -31,14 +31,14 @@ function generateTaskListRecord(
   isCompleted = false,
   shouldSaveInStorage = true
 ) {
-  const newListEl = generateListNewElement(taskId);
-  const newChecboxEl = generateCheckboxElement();
+  const newListEl = generateListNewElement(taskId)[0];
+  const newChecboxEl = generateCheckboxElement()[0];
   const newDescriptionEl = generateDescriptionElement(taskCaption);
   const newRemoveButtonEl = generateRemoveButtonElement();
   const listElConfig = {
     newListEl: newListEl,
     newChecboxEl: newChecboxEl,
-    newDescriptionEl: newDescriptionEl,
+    newDescriptionEl: newDescriptionEl[0],
     newRemoveButtonEl: newRemoveButtonEl,
   };
   const composedListEl = generateListElement(listElConfig);
@@ -76,9 +76,9 @@ function addTaskListRecord(newListEl) {
 */
 
 function generateListNewElement(taskId) {
-  const newListEl = document.createElement("li");
-  taskId ? (newListEl.id = taskId) : (newListEl.id = generateId());
-  newListEl.classList.add("todo-item");
+  const newListEl = $("<li></li>");
+  taskId ? newListEl.prop("id", taskId) : newListEl.prop("id", generateId);
+  newListEl.attr("class", "todo-item");
   return newListEl;
 }
 
@@ -86,18 +86,18 @@ function generateId() {
   return +new Date();
 }
 
-function generateCheckboxElement(isCompleted) {
-  const checkBoxEl = document.createElement("input");
-  checkBoxEl.type = "checkbox";
-  checkBoxEl.addEventListener("change", changeTaskStatus);
+function generateCheckboxElement() {
+  const checkBoxEl = $("<input></input>");
+  checkBoxEl.prop("type", "checkbox");
+  checkBoxEl.on("change", changeTaskStatus);
   return checkBoxEl;
 }
 
 function generateDescriptionElement(taskCaption) {
-  const descriptionEl = document.createElement("span");
-  descriptionEl.textContent = taskCaption;
-  descriptionEl.classList.add("todo-item__description");
-  descriptionEl.addEventListener("click", () => {
+  const descriptionEl = $("<span></span>");
+  descriptionEl.prop("textContent", taskCaption);
+  descriptionEl.attr("class", "todo-item__description");
+  descriptionEl.on("click", () => {
     const taskModal = $("#task-modal");
     taskModal.find(".modal-body").text(taskCaption);
     taskModal.modal("show");
@@ -106,10 +106,10 @@ function generateDescriptionElement(taskCaption) {
 }
 
 function generateRemoveButtonElement() {
-  const removeButtonEl = document.createElement("button");
-  removeButtonEl.classList.add("todo-item__delete");
-  removeButtonEl.textContent = "Видалити";
-  removeButtonEl.addEventListener("click", removeTask);
+  const removeButtonEl = $("<button></button>");
+  removeButtonEl.attr("class", "todo-item__delete");
+  removeButtonEl.prop("textContent", "Видалити");
+  removeButtonEl.on("click", removeTask);
   return removeButtonEl;
 }
 
@@ -117,7 +117,7 @@ function generateListElement(config) {
   const generatedElement = config.newListEl;
   generatedElement.appendChild(config.newChecboxEl);
   generatedElement.appendChild(config.newDescriptionEl);
-  generatedElement.appendChild(config.newRemoveButtonEl);
+  generatedElement.appendChild(config.newRemoveButtonEl[0]);
   return generatedElement;
 }
 
