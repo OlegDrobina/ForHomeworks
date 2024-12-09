@@ -1,0 +1,115 @@
+$color_1: white;
+$font-family_1: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family_2: Lucida Sans Unicode;
+
+div {
+	margin: auto;
+	height: 350px;
+	width: 500px;
+	background-image: white;
+}
+#widget-container-1 {
+	position: relative;
+	display: inline-block;
+}
+#widget-container-2 {
+	position: absolute;
+	display: inline-block;
+}
+#date-time-battery-info-container {
+	width: 300px;
+	height: 100px;
+	margin-left: 5px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+p {
+	font-family: $font-family_1;
+}
+#current-date-info {
+	color: $color_1;
+	font-style: normal;
+	padding-left: 20px;
+	padding-top: 20px;
+	margin-bottom: 0px;
+}
+#current-time-info {
+	color: $color_1;
+	font-weight: bold;
+	font-size: 32px;
+	font-style: normal;
+	padding-left: 20px;
+	padding-top: 0px;
+	padding-top: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+.material-icons {
+	color: $color_1;
+	padding-left: 20px;
+	display: inline-block;
+	font-size: 12px;
+}
+#alarm-clock-info {
+	color: $color_1;
+	display: inline-block;
+}
+#batery-info {
+	color: $color_1;
+	display: inline-block;
+}
+.reload {
+	font-family: $font-family_2;
+	color: $color_1;
+}
+#weather-info-container {
+	color: $color_1;
+	margin-top: 50px;
+	margin-left: 25px;
+}
+#weather-image-container {
+	height: 200px;
+	width: 200px;
+}
+#weather-image {
+	padding-top: 30px;
+	padding-left: 30px;
+	height: 100px;
+	width: 100px;
+}
+#temperature-info {
+	margin-bottom: 15px;
+	margin-top: 15px;
+	padding-left: 30px;
+	font-size: 30px;
+	font-weight: bold;
+	color: $color_1;
+	margin-top: 30px;
+}
+#feels-like-info {
+	color: $color_1;
+	padding-left: 30px;
+}
+#detailed-weather-info {
+	color: $color_1;
+	font-weight: bold;
+	padding-left: 30px;
+}
+#current-date-time-info-bottom {
+	color: $color_1;
+	display: inline-block;
+	padding-left: 30px;
+}
+#refresh-data-button {
+	width: 30px;
+	height: 30px;
+}
+.cloudy-weather {
+	background-image: linear-gradient(to right, rgb(174, 122, 122), grey);
+}
+.snowy-weather {
+	background-image: linear-gradient(to right, rgba(197, 150, 150, 0.992), rgb(91, 86, 86));
+}
+.sunny-weather {
+	background-image: linear-gradient(to right, darkblue, blue);
+}
