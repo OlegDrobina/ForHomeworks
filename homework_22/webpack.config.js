@@ -1,6 +1,7 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -10,7 +11,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "public"),
+      directory: path.join(__dirname, "dist"),
     },
     compress: true,
     port: 9000,
@@ -24,18 +25,6 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-      },
-      {
-        test: /\\.(png|jpe?g|gif|svg)$/, // Збірка для зображень
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              outputPath: "images",
-            },
-          },
-          "image-webpack-loader",
-        ],
       },
       {
         test: /\\.js$/,
@@ -53,6 +42,20 @@ module.exports = {
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
       template: "./index.html",
+    }),
+    new ImageminWebpWebpackPlugin({
+      config: [
+        {
+          test: /\.(jpe?g|png)/,
+          options: {
+            quality: 75,
+          },
+        },
+      ],
+      overrideExtension: true,
+      detailedLogs: false,
+      silent: false,
+      strict: true,
     }),
   ],
 };
