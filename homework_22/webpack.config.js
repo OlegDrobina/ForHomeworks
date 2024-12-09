@@ -1,7 +1,6 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
   entry: "./src/main.js",
@@ -27,47 +26,27 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
-        type: "asset",
+        test: /\\.(png|jpe?g|gif|svg)$/, // Збірка для зображень
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              outputPath: "images",
+            },
+          },
+          "image-webpack-loader",
+        ],
       },
-    ],
-  },
-  optimization: {
-    minimizer: [
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.imageminMinify,
+      {
+        test: /\\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
           options: {
-            plugins: [
-              ["gifsicle", { interlaced: true }],
-              ["jpegtran", { progressive: true }],
-              ["optipng", { optimizationLevel: 5 }],
-              [
-                "svgo",
-                {
-                  plugins: [
-                    {
-                      name: "preset-default",
-                      params: {
-                        overrides: {
-                          removeViewBox: false,
-                          addAttributesToSVGElement: {
-                            params: {
-                              attributes: [
-                                { xmlns: "http://www.w3.org/2000/svg" },
-                              ],
-                            },
-                          },
-                        },
-                      },
-                    },
-                  ],
-                },
-              ],
-            ],
+            presets: ["@babel/preset-env"],
           },
         },
-      }),
+      },
     ],
   },
   plugins: [
