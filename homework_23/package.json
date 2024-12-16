@@ -1,25 +1,23 @@
 {
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jquery": "^3.7.1",
+    "mongoose": "^8.9.0",
+    "nodemon": "^3.1.9"
+  },
   "name": "homework_23",
+  "description": "TODO list with mongo",
   "version": "1.0.0",
-  "description": "Testing node.js",
-  "main": "./src/main.js",
+  "main": "./src/server/index.js",
   "scripts": {
-    "build": "webpack --mode=production",
-    "watch": "webpack --watch --mode=development"
+    "start": "node ./src/server/index.js",
+    "start:dev": "nodemon ./src/server/index.js"
   },
   "keywords": [
-    "nodejs"
+    "nodejss"
   ],
   "author": "O.Drobina",
-  "license": "ISC",
-  "devDependencies": {
-    "copy-webpack-plugin": "^12.0.2",
-    "html-minimizer-webpack-plugin": "^5.0.0",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.2"
-  }
+  "license": "ISC"
 }

@@ -12,12 +12,6 @@ function createTaskRecordOnInit(task) {
   generateTaskListRecord(task.id, task.caption, task.isCompleted, false);
 }
 
-const formEl = document.querySelector("form");
-formEl.addEventListener("submit", (event) => {
-  event.preventDefault();
-  handleAddTaskButtonClick();
-});
-
 function handleAddTaskButtonClick() {
   const taskCaptionEl = document.querySelector(".js--form__input");
   const taskCaption = taskCaptionEl.value;
@@ -32,7 +26,7 @@ function generateTaskListRecord(
 ) {
   const newListEl = generateListNewElement(taskId);
   const newChecboxEl = generateCheckboxElement();
-  const newDescriptionEl = generateDescriptionElement(taskCaption);
+  const newDescriptionEl = generateDescriptionElement(taskId, taskCaption);
   const newRemoveButtonEl = generateRemoveButtonElement();
   const listElConfig = {
     newListEl: newListEl,
@@ -68,7 +62,6 @@ function saveTaskToLocalStorageOnTaskCreation(id, caption) {
 function addTaskListRecord(newListEl) {
   const taskListEl = document.querySelector("ul");
   taskListEl.appendChild(newListEl);
-  formEl.reset();
 }
 
 /*
@@ -93,10 +86,16 @@ function generateCheckboxElement(isCompleted) {
   return checkBoxEl;
 }
 
-function generateDescriptionElement(taskCaption) {
-  const descriptionEl = document.createElement("span");
-  descriptionEl.textContent = taskCaption;
-  descriptionEl.classList.add("todo-item__description");
+function generateDescriptionElement(taskId, taskCaption) {
+  const descriptionEl = $("<span></span>");
+  descriptionEl.prop("textContent", taskCaption);
+  descriptionEl.attr("class", "todo-item__description");
+  descriptionEl.on("click", () => {
+    const taskModal = $("#task-modal");
+    taskModal.find(".modal-body").text(taskCaption);
+    taskModal.find(".modal-header-title").text(`Task Id: ${taskId}`);
+    taskModal.modal("show");
+  });
   return descriptionEl;
 }
 
@@ -111,7 +110,7 @@ function generateRemoveButtonElement() {
 function generateListElement(config) {
   const generatedElement = config.newListEl;
   generatedElement.appendChild(config.newChecboxEl);
-  generatedElement.appendChild(config.newDescriptionEl);
+  generatedElement.appendChild(config.newDescriptionEl[0]);
   generatedElement.appendChild(config.newRemoveButtonEl);
   return generatedElement;
 }
@@ -162,3 +161,67 @@ function removeTaskFromStorage(event) {
     JSON.stringify(localStorageTasksWithoutRemoved)
   );
 }
+
+/*
+  Buttons click handlers
+*/
+
+const getButton = document.querySelector("#get");
+document.querySelector("#get").addEventListener("click", async () => {
+  const response = await getResponse();
+  const data = await response.json();
+});
+
+const postButton = document.querySelector("#post");
+document.querySelector("#post").addEventListener("click", async () => {
+  const response = await postResponse();
+  const data = await response.json();
+});
+
+const putButton = document.querySelector("#put");
+document.querySelector("#put").addEventListener("click", async () => {
+  const response = await putResponse(
+    document.querySelector("#todo-id").value,
+    document.querySelector("#todo-text").value
+  );
+  const data = await response.json();
+  console.log(data);
+});
+
+const deleteButton = document.querySelector("#delete");
+document.querySelector("#delete").addEventListener("click", async () => {
+  const response = await deleteResponse(
+    document.querySelector("#todo-id").value
+  );
+  const data = await response.json();
+  console.log(data);
+});
+
+/*
+  Node.js communication
+*/
+const getResponse = async () => fetch("http://localhost:8080/todos");
+const postResponse = async () => {
+  fetch("http://localhost:8080/todos", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text: "#text",
+      checked: false,
+    }),
+  });
+};
+const putResponse = async (id, text) =>
+  fetch(`http://localhost:8080/todos/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      text,
+      checked: false,
+    }),
+  });
+const deleteResponse = async (id) =>
+  fetch(`http://localhost:8080/todos/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
