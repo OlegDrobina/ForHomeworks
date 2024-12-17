@@ -61,6 +61,7 @@ function generateDescriptionElement(taskId, taskCaption) {
   const descriptionEl = $("<span></span>");
   descriptionEl.prop("textContent", taskCaption);
   descriptionEl.attr("class", "todo-item__description");
+  descriptionEl.attr("id", `js--to-item--${taskId}`);
   descriptionEl.on("click", () => {
     const taskModal = $("#task-modal");
     taskModal.find(".modal-body").text(taskCaption);
@@ -141,13 +142,17 @@ document.querySelector("#post").addEventListener("click", async () => {
 
 const putButton = document.querySelector("#put");
 document.querySelector("#put").addEventListener("click", async () => {
-  const repsonse = await putResponse(
+  const response = await putResponse(
     document.querySelector("#todo-id").value,
     document.querySelector("#todo-text").value,
     document.querySelector(
       `#js--${document.querySelector("#todo-id").value}--checkbox`
     ).checked
   );
+  const data = await response.json();
+  const { _id, text } = data;
+  const descriptionEl = document.getElementById(`js--to-item--${_id}`);
+  descriptionEl.textContent = text;
   clearSearchColumnValuesAfterRequest();
 });
 
@@ -189,7 +194,7 @@ const putResponse = async (id, text, checked) => {
       .getElementById(id)
       ?.querySelector(".todo-item__description")?.textContent;
   }
-  fetch(`http://localhost:8080/todos/${id}`, {
+  return await fetch(`http://localhost:8080/todos/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
