@@ -170,7 +170,7 @@ document.querySelector("#delete").addEventListener("click", async () => {
 const getResponse = async () => fetch("http://localhost:8080/todos");
 
 const postResponse = async () => {
-  const taskSubject = document.querySelector("#todo-text").value;
+  let taskSubject = document.querySelector("#todo-text").value;
   if (taskSubject.length == 0) {
     taskSubject = "Sample task";
   }
