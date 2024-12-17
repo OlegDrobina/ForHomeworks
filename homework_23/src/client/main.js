@@ -1,11 +1,4 @@
-window.addEventListener("load", () => {
-  const listOfTasks = localStorage.getItem("listOfTasks");
-  if (listOfTasks) {
-    JSON.parse(listOfTasks).forEach((task) => {
-      createTaskRecordOnInit(task);
-    });
-  }
-});
+window.addEventListener("load", () => {});
 
 function createTaskRecordOnInit(task) {
   //to do - reduce the number of params using destructuring assignment
@@ -18,21 +11,14 @@ function handleAddTaskButtonClick() {
   generateTaskListRecord(null, taskCaption);
 }
 
-function generateTaskListRecord(
-  taskId,
-  taskCaption,
-  isCompleted = false,
-  shouldSaveInStorage = true
-) {
+function generateTaskListRecord(taskId, taskCaption, isCompleted = false) {
   const newListEl = generateListNewElement(taskId);
-  const newChecboxEl = generateCheckboxElement();
+  const newChecboxEl = generateCheckboxElement(taskId);
   const newDescriptionEl = generateDescriptionElement(taskId, taskCaption);
-  const newRemoveButtonEl = generateRemoveButtonElement();
   const listElConfig = {
     newListEl: newListEl,
     newChecboxEl: newChecboxEl,
     newDescriptionEl: newDescriptionEl,
-    newRemoveButtonEl: newRemoveButtonEl,
   };
   const composedListEl = generateListElement(listElConfig);
   if (isCompleted) {
@@ -41,22 +27,6 @@ function generateTaskListRecord(
   }
   addTaskListRecord(composedListEl);
   const composedListElId = composedListEl.id;
-  if (shouldSaveInStorage) {
-    saveTaskToLocalStorageOnTaskCreation(composedListElId, taskCaption);
-  }
-}
-
-function saveTaskToLocalStorageOnTaskCreation(id, caption) {
-  const storageTasks = localStorage.getItem("listOfTasks");
-  localStorage.setItem(
-    "listOfTasks",
-    storageTasks
-      ? JSON.stringify([
-          ...JSON.parse(storageTasks),
-          { id: id, caption: caption, isCompleted: false },
-        ])
-      : JSON.stringify([{ id: id, caption: caption, isCompleted: false }])
-  );
 }
 
 function addTaskListRecord(newListEl) {
@@ -79,8 +49,9 @@ function generateId() {
   return +new Date();
 }
 
-function generateCheckboxElement(isCompleted) {
+function generateCheckboxElement(taskId) {
   const checkBoxEl = document.createElement("input");
+  checkBoxEl.id = `js--${taskId}--checkbox`;
   checkBoxEl.type = "checkbox";
   checkBoxEl.addEventListener("change", changeTaskStatus);
   return checkBoxEl;
@@ -99,19 +70,10 @@ function generateDescriptionElement(taskId, taskCaption) {
   return descriptionEl;
 }
 
-function generateRemoveButtonElement() {
-  const removeButtonEl = document.createElement("button");
-  removeButtonEl.classList.add("todo-item__delete");
-  removeButtonEl.textContent = "Видалити";
-  removeButtonEl.addEventListener("click", removeTask);
-  return removeButtonEl;
-}
-
 function generateListElement(config) {
   const generatedElement = config.newListEl;
   generatedElement.appendChild(config.newChecboxEl);
   generatedElement.appendChild(config.newDescriptionEl[0]);
-  generatedElement.appendChild(config.newRemoveButtonEl);
   return generatedElement;
 }
 
@@ -123,19 +85,6 @@ function changeTaskStatus(event) {
   const eventTarget = event.currentTarget;
   const listEl = eventTarget.parentElement;
   listEl.classList.toggle("todo-item--checked");
-  saveTaskStatusInLocalStorage(eventTarget, listEl);
-}
-
-function saveTaskStatusInLocalStorage(evtTarget, listEl) {
-  const isCompleted = listEl.classList.contains("todo-item--checked");
-  const taskId = evtTarget.parentElement.id;
-  const localStorageTasks = localStorage.getItem("listOfTasks");
-  const taskFromLocalStorageIdx = JSON.parse(localStorageTasks).findIndex(
-    (task) => task.id == taskId
-  );
-  const parsedLocalStorage = JSON.parse(localStorageTasks);
-  parsedLocalStorage[taskFromLocalStorageIdx].isCompleted = isCompleted;
-  localStorage.setItem("listOfTasks", JSON.stringify(parsedLocalStorage));
 }
 
 /*
@@ -146,20 +95,22 @@ function removeTask(event) {
   const eventTarget = event.currentTarget;
   const listRecordEl = eventTarget.parentElement;
   const listEl = listRecordEl.parentElement;
-  removeTaskFromStorage(event);
   listEl.removeChild(listRecordEl);
 }
 
-function removeTaskFromStorage(event) {
-  const taskId = event.target.parentElement.id;
-  const localStorageTasks = JSON.parse(localStorage.getItem("listOfTasks"));
-  const localStorageTasksWithoutRemoved = localStorageTasks.filter(
-    (task) => task.id !== taskId
-  );
-  localStorage.setItem(
-    "listOfTasks",
-    JSON.stringify(localStorageTasksWithoutRemoved)
-  );
+function getCurrentlyDisplayedTaskIds() {
+  const tasksListElmnts = document.querySelectorAll("li");
+  let currentTasksIds = [];
+  if (tasksListElmnts.length != 0) {
+    tasksListElmnts.forEach((item) => {
+      currentTasksIds.push(item.id);
+    });
+  }
+  return currentTasksIds;
+}
+
+function clearSearchColumnValuesAfterRequest() {
+  document.querySelector("#form-id").reset();
 }
 
 /*
@@ -170,58 +121,87 @@ const getButton = document.querySelector("#get");
 document.querySelector("#get").addEventListener("click", async () => {
   const response = await getResponse();
   const data = await response.json();
+  const currentTasksIds = getCurrentlyDisplayedTaskIds();
+  data.forEach((item) => {
+    const { _id, text, checked } = item;
+    if (!currentTasksIds.includes(_id)) {
+      generateTaskListRecord(_id, text, checked);
+    }
+  });
 });
 
 const postButton = document.querySelector("#post");
 document.querySelector("#post").addEventListener("click", async () => {
   const response = await postResponse();
-  const data = await response.json();
+  const procResponse = await response.json();
+  const { _id, text, checked } = procResponse;
+  generateTaskListRecord(_id, text, checked);
+  clearSearchColumnValuesAfterRequest();
 });
 
 const putButton = document.querySelector("#put");
 document.querySelector("#put").addEventListener("click", async () => {
-  const response = await putResponse(
+  const repsonse = await putResponse(
     document.querySelector("#todo-id").value,
-    document.querySelector("#todo-text").value
+    document.querySelector("#todo-text").value,
+    document.querySelector(
+      `#js--${document.querySelector("#todo-id").value}--checkbox`
+    ).checked
   );
-  const data = await response.json();
-  console.log(data);
+  clearSearchColumnValuesAfterRequest();
 });
 
 const deleteButton = document.querySelector("#delete");
 document.querySelector("#delete").addEventListener("click", async () => {
-  const response = await deleteResponse(
-    document.querySelector("#todo-id").value
-  );
-  const data = await response.json();
-  console.log(data);
+  const deleteRecordId = document.querySelector("#todo-id").value;
+  const response = await deleteResponse(deleteRecordId);
+  const readResponse = await response.json();
+  if (readResponse?.deletedCount === 1) {
+    const listEl = document.getElementById(`${deleteRecordId}`);
+    const parentListel = listEl.parentElement;
+    parentListel.removeChild(listEl);
+    clearSearchColumnValuesAfterRequest();
+  }
 });
 
 /*
   Node.js communication
 */
 const getResponse = async () => fetch("http://localhost:8080/todos");
+
 const postResponse = async () => {
-  fetch("http://localhost:8080/todos", {
+  const taskSubject = document.querySelector("#todo-text").value;
+  if (taskSubject.length == 0) {
+    taskSubject = "Sample task";
+  }
+  return await fetch("http://localhost:8080/todos", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      text: "#text",
+      text: taskSubject,
       checked: false,
     }),
   });
 };
-const putResponse = async (id, text) =>
+const putResponse = async (id, text, checked) => {
+  if (text.length === 0) {
+    text = document
+      .getElementById(id)
+      ?.querySelector(".todo-item__description")?.textContent;
+  }
   fetch(`http://localhost:8080/todos/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       text,
-      checked: false,
+      checked: checked,
     }),
   });
-const deleteResponse = async (id) =>
-  fetch(`http://localhost:8080/todos/${id}`, {
+};
+
+const deleteResponse = async (id) => {
+  return await fetch(`http://localhost:8080/todos/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
   });
+};
