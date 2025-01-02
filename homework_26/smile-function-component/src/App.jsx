@@ -11,13 +11,13 @@ function App() {
   return (
     <>
       <HeaderComponent></HeaderComponent>
-      <SmileComponent src={smileImage} id="smileEl-id"></SmileComponent>
-      <SmileComponent src={punkImage} id="punkEl-id"></SmileComponent>
-      <SmileComponent src={asianImage} id="asianEl-id"></SmileComponent>
-      <SmileComponent src={hipsterImage} id="hipsterEl-id"></SmileComponent>
-      <SmileComponent src={gentlmanImage} id="gentMan-id"></SmileComponent>
+      <SmileComponent src={smileImage} id="smileEl-id" />
+      <SmileComponent src={punkImage} id="punkEl-id" />
+      <SmileComponent src={asianImage} id="asianEl-id" />
+      <SmileComponent src={hipsterImage} id="hipsterEl-id" />
+      <SmileComponent src={gentlmanImage} id="gentMan-id" />
       <br></br>
-      <ShowResultsComponent></ShowResultsComponent>
+      <ShowResultsComponent />
     </>
   )
 }
