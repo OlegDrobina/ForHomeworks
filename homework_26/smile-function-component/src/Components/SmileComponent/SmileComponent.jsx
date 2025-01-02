@@ -1,40 +1,35 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 
-class SmileComponent extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clickNum: 0,
-            width: "100px",
-            height: "100px"
-        }
+const SmileComponent = (props) => {
+    const [clickNum, setClickNum] = useState(0);
+    const width = "100px";
+    const height = "100px";
+    const { id } = props;
+
+    const performIncrement = () => {
+        setClickNum(prevCount => prevCount + 1);
+        saveStateToLocalStorage(clickNum + 1, id)
     }
 
-    componentDidMount() {
-        this.setStateFromLocalStorage();
-    }
+    useEffect(() => {
+        setStateFromLocalStorage(); 
+    }, []);
 
-    setStateFromLocalStorage() {
+    const setStateFromLocalStorage = () => {
         const storageData = localStorage.getItem("clicksCount");
         if (storageData === null) {
             return;
         }
-        const currElementId = this.props.id;
+        const currElementId = props.id;
         const smileFromLocalStorageIdx = JSON.parse(storageData).findIndex(
             (smileEl) => smileEl.id === currElementId
           );
           if (smileFromLocalStorageIdx !== -1) {
-            this.setState({clickNum: JSON.parse(storageData)[smileFromLocalStorageIdx].clickNum})
+            setClickNum(JSON.parse(storageData)[smileFromLocalStorageIdx].clickNum);
           }
     }
 
-    performIncrement = () => {
-        this.setState({clickNum: this.state.clickNum + 1}, () => {
-            this.saveStateToLocalStorage(this.state.clickNum, this.props.id);
-        });
-    }
-
-    saveStateToLocalStorage = (clicksCount, elId) => {
+    const saveStateToLocalStorage = (clicksCount, elId) => {
         const storageData = localStorage.getItem("clicksCount");
         if (storageData === null) {
             localStorage.setItem("clicksCount", JSON.stringify([{ id: elId, clickNum: clicksCount }]));
@@ -56,14 +51,12 @@ class SmileComponent extends Component {
         
     }
 
-    render() {
-        return (
-            <div className="smile-component-js">
-                <img src={this.props.src} onClick={this.performIncrement} width={this.state.width} height={this.state.height} id={this.props.id}></img>
-                <p>{this.state.clickNum}</p>
-            </div> 
-        );
-    }
+    return (
+        <div className="smile-component-js">
+            <img src={props.src} onClick={performIncrement} width={width} height={height} id={props.id}></img>
+            <p>{clickNum}</p>
+        </div> 
+    );
 }
 
 export default SmileComponent;
