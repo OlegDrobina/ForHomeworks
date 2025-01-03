@@ -1,4 +1,4 @@
-const VoteResultsComponent = (props) => {
+const VoteResults = (props) => {
     const width = "100px";
     const height = "100px";
 
@@ -12,4 +12,4 @@ const VoteResultsComponent = (props) => {
     );
 }
 
-export default VoteResultsComponent;
+export default VoteResults;

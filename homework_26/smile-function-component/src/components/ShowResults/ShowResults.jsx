@@ -1,12 +1,12 @@
 import { useState } from "react";
-import VoteResultsComponent from "../VoteResultsComponent/VoteResultsComponent";
+import VoteResultsComponent from "../VoteResults/VoteResults";
 import gentlmanImage from "../../img/gentleman-men.svg";
 import smileImage from "../../img/smile.svg"
 import punkImage from "../../img/punk.svg"
 import asianImage from "../../img/asian-traditional.svg"
 import hipsterImage from "../../img/hipster.svg"
 
-const ShowResultsComponent = (props) => {
+const ShowResults = (props) => {
     const [resultsVisible, setResultVisible] = useState(false);
     const [winnerImgSrc, setWinnerImgSrc] = useState('');
     const [winnerClickCount, setWinnerClickCount] = useState(0);
@@ -66,4 +66,4 @@ const ShowResultsComponent = (props) => {
     );
 }
 
-export default ShowResultsComponent;
+export default ShowResults;
