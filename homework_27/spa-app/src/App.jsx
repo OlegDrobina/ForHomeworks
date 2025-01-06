@@ -20,9 +20,9 @@ function App() {
         <main>
           <Routes>
             <Route path='*' element={<NotFound />} />
-            <Route path='aboutme' element={<AboutMe />}/>
             <Route path='/' element={<Main />} />
             <Route path='/contacts' element={<Contacts />} />
+            <Route path='aboutme' element={<AboutMe />}/>
           </Routes>
         </main>
       </div>
