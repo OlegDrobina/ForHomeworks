@@ -10,7 +10,7 @@ const FormContent = (props) => {
       <form className='d-flex' onSubmit={sendForm}>
         <input name='todo' type='text' className='form-control' />
         <button type='submit' className='btn btn-primary'>
-          Send
+          Create
         </button>
       </form>
     )
