@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import Header from './components/Header/Header'
 import { ThemeContext, themes } from './themeContext'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+
+import Header from './components/Header/Header'
 import AboutMe from './components/AboutMe/AboutMe';
 import Main from './components/Main/Main';
 import Contacts from './components/Contacts/Contacts'
