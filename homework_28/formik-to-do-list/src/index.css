@@ -1,0 +1,19 @@
+@import "bootstrap/dist/css/bootstrap.css";
+
+.error-message {
+    color: white;
+    font-size: 10px;
+    background-color: blue;
+}
+
+#submitButton {
+    margin-left: 5px;
+}
+
+#taskCaption {
+    width: 650px;
+}
+
+body {
+  margin-left: 10px;
+}
