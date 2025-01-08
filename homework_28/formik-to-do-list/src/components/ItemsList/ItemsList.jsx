@@ -8,8 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import { TasksContext } from '../../tasksContext';
 import { useContext } from 'react';
 
-const ItemsList = (props) => {
-    const { items } = props;
+const ItemsList = () => {
     const [task, setTask] = useContext(TasksContext);
 
     const handleDeleteButtonClick = (id) => {
@@ -31,7 +30,7 @@ const ItemsList = (props) => {
     return (
       <Box sx={{ width: '50%', bgcolor: 'background.paper', mt: '15px' }}>
         <List>
-          {items[0].map((item, index) => (
+          {task.map((item, index) => (
             <div key={index}>
               <Divider />
               <ListItem>
