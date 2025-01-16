@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import TextField from '@mui/material/TextField';
 import { Button } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import Checkbox from '@mui/material/Checkbox';
@@ -29,11 +28,9 @@ const ItemsList = () => {
       dispatch(completeToDo({id: id, isCompleted: !isCompleted}));
     }
 
-    const handleSaveButtonClick = (id, taskText, event) => {
-      dispatch(modifyToDo({id: id, text: taskText}));
+    const handleSaveButtonClick = (id) => {
+      dispatch(modifyToDo({id: id, text: ''}));
     }
-
-    const handleTaskSubjectChange = (event) => {}
   
     return (
       <Box sx={{ width: '50%', bgcolor: 'background.paper', mt: '15px' }}>
@@ -43,11 +40,9 @@ const ItemsList = () => {
               <Divider />
               <ListItem>
                 <Checkbox checked={item.isCompleted} onChange={() => handleTaskComplete(item.id, item.isCompleted)} />
-                <TextField id="outlined-basic" variant="outlined" defaultValue={item.text} onChange={(event) => handleTaskSubjectChange(event)} disabled={isLoading} />
-                <Button variant="contained" color="success" style={{ height: "56px" }} onClick={(event) => handleSaveButtonClick(item.id, item.text, event)} disabled={isLoading}>Save</Button>
-                <Button variant="outlined" color="error" style={{ height: "56px" }} onClick={() => handleDeleteClick(item.id)} disabled={isLoading}>
-                Delete
-              </Button>
+                <ListItemText primary={item.text} />
+                <Button variant="contained" color="success" style={{ height: "56px" }} onClick={() => handleSaveButtonClick(item.id)} disabled={isLoading}>Save</Button>
+                <Button variant="outlined" color="error" style={{ height: "56px" }} onClick={() => handleDeleteClick(item.id)} disabled={isLoading}>Delete</Button>
               </ListItem>
             </div>
           ))}

@@ -1,1 +1,9 @@
 @import "bootstrap/dist/css/bootstrap.css";
+
+#header-form-id {
+    margin-left: 60px;
+}
+
+#footer-modify-item-id {
+    margin-left: 20px;
+}

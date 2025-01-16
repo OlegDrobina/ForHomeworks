@@ -11,8 +11,9 @@ import {
   completeItem,
   modifyToDo,
   modifyItem,
+  clearToDo,
+  clearItems,
 } from "./slices/tasksListSlice";
-//workers
 
 function fetchHelper(url, options) {
   return fetch(url, options).then((response) => {
@@ -22,6 +23,8 @@ function fetchHelper(url, options) {
     return response.json();
   });
 }
+
+//  Workers
 
 function* fetchItemsSaga() {
   try {
@@ -100,7 +103,28 @@ function* modifyItemSaga(action) {
   }
 }
 
-//watchers
+//  Requested resource doesn't return Access-Control-Allow-Origin header in the response
+//  usage of no-cors mode is not an option since we cannot pass the Token header in the request
+function* clearItemsSaga(action) {
+  try {
+    const todo = yield call(fetchHelper, API.URL_CLEAR, {
+      mode: "cors",
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Token:
+          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI2NzdjMWRiZTIwODI0MTAwYzA3YmYwZWEiLCJpYXQiOjE3MzYxODczMjYzNDYsImV4cCI6MTc5OTI1OTMyNjM0Nn0.u96H3fxgl6jda1Yy5MW-TFUhqtvY8CbHDUwuw4V_VlY",
+      }),
+      body: JSON.stringify({ count: 0 }),
+    });
+
+    yield put(clearItems(todo));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+//  Watchers
 function* watchFetchToDo() {
   yield takeEvery(fetchToDo.type, fetchItemsSaga);
 }
@@ -121,6 +145,10 @@ function* watchModifyItem() {
   yield takeEvery(modifyToDo.type, modifyItemSaga);
 }
 
+function* watchClearItems() {
+  yield takeEvery(clearToDo.type, clearItemsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchFetchToDo(),
@@ -128,5 +156,6 @@ export default function* rootSaga() {
     watchDeleteItem(),
     watchCompleteItem(),
     watchModifyItem(),
+    watchClearItems(),
   ]);
 }

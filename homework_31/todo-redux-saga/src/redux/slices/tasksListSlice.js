@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { items: [], isLoading: false, isCompleted: false };
+const initialState = {
+  items: [],
+  isLoading: false,
+  isCompleted: false,
+  modifySubjectText: "",
+};
 export const tasksListSlice = createSlice({
   name: "tasksList",
   initialState,
   reducers: {
+    modifyItemText: (state, action) => {
+      state.modifySubjectText = action.payload;
+    },
     addToDo: (state) => {
       state.isLoading = true;
     },
@@ -34,12 +42,20 @@ export const tasksListSlice = createSlice({
         action.payload.isCompleted;
       state.isLoading = false;
     },
-    modifyToDo: (state) => {
+    modifyToDo: (state, action) => {
+      action.payload.text = state.modifySubjectText;
       state.isLoading = true;
     },
     modifyItem: (state, action) => {
       state.items.find((item) => item.id == action.payload.id).text =
         action.payload.text;
+      state.isLoading = false;
+    },
+    clearToDo: (state) => {
+      state.isLoading = true;
+    },
+    clearItems: (state, action) => {
+      state.items = [];
       state.isLoading = false;
     },
   },
@@ -56,4 +72,7 @@ export const {
   completeItem,
   modifyToDo,
   modifyItem,
+  clearToDo,
+  clearItems,
+  modifyItemText,
 } = tasksListSlice.actions;

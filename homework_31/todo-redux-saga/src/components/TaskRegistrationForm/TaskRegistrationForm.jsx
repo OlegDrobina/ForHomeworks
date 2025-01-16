@@ -1,10 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useDispatch } from 'react-redux';
-import { tasksListSlice } from '../../redux/slices/tasksListSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToDo } from '../../redux/slices/tasksListSlice';
+import selectors from '../../redux/slices/selectors';
 
 const TaskRegistrationForm = () => {
     const dispatch = useDispatch();
+
+    const isLoading = useSelector(selectors.isLoading);
 
     const initialValues = {
         taskCaption: ''
@@ -24,7 +26,7 @@ const TaskRegistrationForm = () => {
             <ErrorMessage name="taskCaption" className="error-message" component="div" />
           </div>
           <div>
-          <button id="submitButton" type="submit" className='btn btn-primary'>Submit</button>
+          <button id="submitButton" type="submit" className='btn btn-primary' disabled={isLoading}>Submit</button>
           </div>
         </Form>
       </Formik>
