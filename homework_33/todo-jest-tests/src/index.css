@@ -1,0 +1,15 @@
+@import "bootstrap/dist/css/bootstrap.css";
+
+#header-form-id {
+    margin-left: 60px;
+}
+
+#footer-modify-item-id {
+    margin-left: 20px;
+}
+
+.error-message {
+  color: white;
+  font-size: 10px;
+  background-color: blue;
+}
