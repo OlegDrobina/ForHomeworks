@@ -1,5 +1,5 @@
 import React from "react";
-import App from "./App";
+import App from '../App'
 
 describe("Test cases", () => {
   it("Check TODOS text", () => {
