@@ -1,19 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { swapiResponse: "", isClearButtonVisible: false };
+const initialState = {
+  swapiResponse: "",
+  isClearButtonVisible: false,
+  isGetInfoButtonDisabled: false,
+};
 
 export const swapiSlice = createSlice({
   name: "swapi",
   initialState,
   reducers: {
-    startProcessFetchResponse: (state, action) => {},
+    startProcessFetchResponse: (state) => {
+      state.isGetInfoButtonDisabled = true;
+    },
     processFetchResponse: (state, action) => {
       state.swapiResponse = action.payload;
+      state.isGetInfoButtonDisabled = false;
       state.isClearButtonVisible = true;
     },
-    startProcessClearResponse: (state, action) => {},
+    startProcessClearResponse: (state) => {
+      state.isGetInfoButtonDisabled = true;
+    },
     clearResponse: (state) => {
       state.swapiResponse = "";
+      state.isGetInfoButtonDisabled = false;
       state.isClearButtonVisible = false;
     },
   },
@@ -25,15 +35,3 @@ export const {
   startProcessClearResponse,
   clearResponse,
 } = swapiSlice.actions;
-
-export const getData = (payload) => async (dispatch) => {
-  const reqUrl = API.URL_SWAPI;
-  const completeUrl = `${reqUrl}${payload}`;
-  try {
-    const response = await fetch(completeUrl);
-    const data = await response.json();
-    dispatch(processFetchResponse(JSON.stringify(data.result, false, 4)));
-  } catch (e) {
-    console.log(e);
-  }
-};

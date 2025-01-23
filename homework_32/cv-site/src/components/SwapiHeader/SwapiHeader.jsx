@@ -1,7 +1,6 @@
+import { Typography } from "@mui/material";
 const SwapiHeader = () => {
-    return (
-        <h1>SWAPI</h1>
-    )
-}
+  return <Typography variant='h3'>SWAPI</Typography>;
+};
 
 export default SwapiHeader;

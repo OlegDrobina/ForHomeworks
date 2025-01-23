@@ -1,24 +1,23 @@
-import SwapiHeader from '../SwapiHeader/SwapiHeader'
-import SwapiCardBody from '../SwapiCardBody/SwapiCardBody'
-import SwapiFooter from '../SwapiFooter/SwapiFooter'
-import SwapiReqUrl from '../SwapiReqUrl/SwapiReqUrl'
+import SwapiHeader from "../SwapiHeader/SwapiHeader";
+import SwapiCardBody from "../SwapiCardBody/SwapiCardBody";
+import SwapiFooter from "../SwapiFooter/SwapiFooter";
+import SwapiReqUrl from "../SwapiReqUrl/SwapiReqUrl";
+import { Box } from "@mui/material";
 
-
-import { Provider } from 'react-redux'
-import { store } from '../../redux/store'
+import { Provider } from "react-redux";
+import { store } from "../../redux/store";
 
 const SwapiPage = () => {
-
   return (
     <Provider store={store}>
-      <div className="container">
+      <Box>
         <SwapiHeader />
         <SwapiReqUrl />
         <SwapiCardBody />
         <SwapiFooter />
-      </div>
+      </Box>
     </Provider>
-  )
-}
+  );
+};
 
-export default SwapiPage
+export default SwapiPage;

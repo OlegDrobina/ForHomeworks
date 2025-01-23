@@ -5,4 +5,5 @@ export default {
   modifySubjectText: (state) => state.tasksList.modifySubjectText,
   swapiResponse: (state) => state.swapi.swapiResponse,
   isClearButtonVisible: (state) => state.swapi.isClearButtonVisible,
+  isGetInfoButtonDisabled: (state) => state.swapi.isGetInfoButtonDisabled,
 };
