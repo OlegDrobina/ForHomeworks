@@ -1,8 +1,8 @@
-# React + Vite
+HW 32.1. Сайт-резюме
+Створити сайт про себе, за допомогою MUI або Ant-design. Сайт повинен мати
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Хедер, де буде меню навігації
+Головна сторінка повинна бути схожою на ваше резюме. З описом ваших навічок і т.д.
+Сторінка з списком TODO
+Сторінка з SWAPI
+Футер з контактами
